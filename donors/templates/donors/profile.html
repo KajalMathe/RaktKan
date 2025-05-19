@@ -1,0 +1,69 @@
+{% extends "donors/donor_base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-2xl shadow-lg">
+    <h2 class="text-3xl font-bold text-red-600 text-center mb-6">My Profile</h2>
+
+    <!-- Success/Error Alerts -->
+    {% if messages %}
+        <div id="alert-container" class="space-y-4 mb-4">
+            {% for message in messages %}
+                <div class="p-4 rounded-lg text-white text-sm font-medium shadow-md
+                            {% if message.tags == 'success' %}
+                                bg-green-500
+                            {% elif message.tags == 'error' %}
+                                bg-red-500
+                            {% else %}
+                                bg-blue-500
+                            {% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Profile Information Section -->
+    <div class="flex flex-col items-center text-center">
+        {% if donor.profile_picture %}
+            <img src="{{ donor.profile_picture.url }}" alt="Profile Picture"
+                 class="w-32 h-32 rounded-full object-cover shadow-md transition-transform hover:scale-105 duration-300">
+        {% else %}
+            <img src="{% static 'images/default_profile.png' %}" alt="Default Profile Picture"
+                 class="w-32 h-32 rounded-full object-cover shadow-md transition-transform hover:scale-105 duration-300">
+        {% endif %}
+
+        <h3 class="mt-4 text-2xl font-semibold text-gray-800">{{ donor.full_name }}</h3>
+
+        <!-- Donor Details -->
+        <div class="mt-4 w-full space-y-2 text-sm text-gray-600">
+            <p><span class="font-semibold text-gray-700">🩸 Blood Group:</span> {{ donor.blood_group }}</p>
+            <p><span class="font-semibold text-gray-700">📞 Mobile:</span> {{ donor.mobile_number }}</p>
+            <p><span class="font-semibold text-gray-700">📧 Email:</span> {{ donor.email }}</p>
+            <p><span class="font-semibold text-gray-700">📍 Location:</span> {{ donor.city }}, {{ donor.state }}</p>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="mt-6 space-y-4">
+        <a href="{% url 'donor_dashboard' %}"
+           class="block text-center bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300">
+            ← Back to Dashboard
+        </a>
+        <a href="{% url 'change_donor_password' %}"
+           class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300">
+            🔒 Change Password
+        </a>
+    </div>
+</div>
+
+<!-- JS to auto-hide messages -->
+<script>
+    setTimeout(() => {
+        const alertContainer = document.getElementById('alert-container');
+        if (alertContainer) {
+            alertContainer.style.display = 'none';
+        }
+    }, 4000); // hides after 4 seconds
+</script>
+{% endblock %}

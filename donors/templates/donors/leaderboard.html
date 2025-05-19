@@ -1,0 +1,20 @@
+<!-- donor/templates/donor/leaderboard.html -->
+{% extends "donors/donor_base.html" %}
+{% block title %}Leaderboard - RaktKan{% endblock %}
+{% block content %}
+<h2 class="text-center text-danger">Top Donors</h2>
+<table class="table table-striped mt-3">
+  <thead>
+    <tr><th>Rank</th><th>Username</th><th>Donations</th></tr>
+  </thead>
+  <tbody>
+    {% for donor in top_donors %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>{{ donor.user.username }}</td>
+      <td>{{ donor.donation_count }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,275 @@
+{% extends base_template %}
+{% load static %}
+
+{% block title %}Find Blood Banks{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<style>
+    /* General container styles */
+#map {
+    height: 600px;
+    width: full;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.map-container {
+    background-color: #fff5f5;
+    padding: 40px 20px;
+    width:100%;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.1);
+}
+
+/* Search Area Styles */
+.container.mb-3 {
+    padding: 20px 0;
+}
+
+.input-group {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+#searchBox {
+    border-radius: 20px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#searchBtn, #nearestBtn {
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+#searchBtn {
+    background-color: #ffcccc;
+    color: #800000;
+    border: none;
+}
+
+#nearestBtn {
+    background-color: #ff9999;
+    color: #660000;
+    border: none;
+}
+
+#searchBtn:hover, #nearestBtn:hover {
+    background-color: #ff6666;
+    color: #330000;
+}
+
+/* List of Search Results */
+#searchResults {
+    margin-top: 10px;
+}
+
+.list-group-item {
+    background-color: #fff0f0;
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(255, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.list-group-item:hover {
+    transform: scale(1.02);
+    background-color: #ffcccc;
+}
+
+.list-group-item b {
+    color: #b30000;
+}
+
+.list-group-item small {
+    color: #660000;
+}
+
+/* General Styling Adjustments */
+body {
+    background-color: #f9f9f9;
+}
+
+h1 {
+    color: rgb(79, 15, 15);
+    font-weight: bold;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+</style>
+
+<!-- Page Title -->
+<div class="map-container">
+    <h1 class="text-center my-4">Find Blood Banks in Indore</h1>
+
+<!-- Search Area -->
+    <div class="input-group">
+        <input type="text" id="searchBox" class="form-control" placeholder="Search by name or area...">
+        <button class="btn btn-danger ms-2" hidden id="searchBtn">Search</button>
+        <button id="nearestBtn" class="btn btn-danger ms-2">Find Nearest</button>
+    </div>
+    <br>
+    <p style="color:rgb(79, 15, 15); ">Total banks: {{ bloodbanks|length }}</p>
+
+
+<!-- Search Result List -->
+
+    <ul id="searchResults" class="list-group"></ul>
+    <div id="map"></div>
+</div>
+
+
+<!-- Leaflet CSS/JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+    let map = L.map('map').setView([22.7196, 75.8577], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const bloodBanks = [
+        {% for bank in bloodbanks %}
+        {
+            name: "{{ bank.name|escapejs }}",
+            address: "{{ bank.address|escapejs }}",
+            phone: "{{ bank.phone|escapejs }}",
+            email: "{{ bank.email|escapejs }}",
+            lat: {{ bank.latitude }},
+            lng: {{ bank.longitude }}
+        },
+        {% endfor %}
+    ];
+
+    let markers = [];
+
+    function addMarkers(banks) {
+        markers.forEach(marker => map.removeLayer(marker));
+        markers = [];
+
+        const customIcon = L.icon({
+            iconUrl: 'https://cdn-icons-png.flaticon.com/512/6154/6154531.png',
+            iconSize: [40, 40],
+            iconAnchor: [20, 40],
+            popupAnchor: [0, -40]
+        });
+
+        const newMarkers = [];
+
+        banks.forEach(bank => {
+            const marker = L.marker([bank.lat, bank.lng], { icon: customIcon }).addTo(map)
+                .bindPopup(`<b>${bank.name}</b><br>${bank.address}<br>Phone: ${bank.phone}<br>Email: ${bank.email}`);
+            newMarkers.push(marker);
+        });
+
+        markers = newMarkers;
+        return newMarkers;
+    }
+
+    addMarkers(bloodBanks);
+
+    function filterBanks(term) {
+        return bloodBanks.filter(bank =>
+            bank.name.toLowerCase().includes(term) ||
+            bank.address.toLowerCase().includes(term)
+        );
+    }
+
+    function displaySearchResults(results, markerList) {
+        const list = document.getElementById("searchResults");
+        list.innerHTML = "";
+
+        results.forEach((bank, index) => {
+            const li = document.createElement("li");
+            li.className = "list-group-item";
+            li.innerHTML = `<b>${bank.name}</b><br>${bank.address}<br><small>${bank.phone} | ${bank.email}</small>`;
+            li.addEventListener("click", () => {
+                map.setView([bank.lat, bank.lng], 15);
+                markerList[index].openPopup();
+            });
+            list.appendChild(li);
+        });
+    }
+
+    document.getElementById("searchBtn").addEventListener("click", function () {
+        const term = document.getElementById("searchBox").value.trim().toLowerCase();
+        const results = filterBanks(term);
+        addMarkers(results);
+        displaySearchResults(results, markers);
+    });
+
+    document.getElementById("searchBox").addEventListener("input", function () {
+        const term = this.value.trim().toLowerCase();
+        const results = filterBanks(term);
+        addMarkers(results);
+        displaySearchResults(results, markers);
+    });
+
+    function getDistance(lat1, lon1, lat2, lon2) {
+        function toRad(x) { return x * Math.PI / 180; }
+        const R = 6371;
+        const dLat = toRad(lat2 - lat1);
+        const dLon = toRad(lon2 - lon1);
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                  Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+                  Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
+    }
+
+    document.getElementById("nearestBtn").addEventListener("click", function () {
+        if (!navigator.geolocation) {
+            alert("Geolocation not supported by this browser.");
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(function (position) {
+            const userLat = position.coords.latitude;
+            const userLng = position.coords.longitude;
+
+            L.marker([userLat, userLng], {
+                icon: L.icon({
+                    iconUrl: 'https://cdn0.iconfinder.com/data/icons/real-estate-bold-3-1/256/Near_Me-512.png',
+                    iconSize: [40, 40],
+                    iconAnchor: [20, 40],
+                    popupAnchor: [0, -40]
+                })
+            }).addTo(map).bindPopup("You are here").openPopup();
+
+            let nearest = null;
+            let minDist = Infinity;
+            for (let bank of bloodBanks) {
+                let dist = getDistance(userLat, userLng, bank.lat, bank.lng);
+                if (dist < minDist) {
+                    minDist = dist;
+                    nearest = bank;
+                }
+            }
+
+            if (nearest) {
+                L.circle([nearest.lat, nearest.lng], {
+                    color: 'red',
+                    fillOpacity: 0.2,
+                    radius: 1000
+                }).addTo(map)
+                  .bindPopup(`<b>Nearest Blood Bank</b><br>${nearest.name}`).openPopup();
+
+                map.setView([nearest.lat, nearest.lng], 14);
+            }
+        }, function (error) {
+            alert("Failed to get location: " + error.message);
+        });
+    });
+</script>
+
+{% endblock %}

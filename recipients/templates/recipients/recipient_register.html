@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Recipient Registration - RaktKan{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+    <h2 class="text-center text-red-600 text-3xl font-bold mb-8">
+        <i class="fas fa-heartbeat mr-2"></i> Recipient Registration
+    </h2>
+
+    <!-- Success & Error Messages -->
+    {% if messages %}
+        <div class="mb-8 space-y-3">
+            {% for message in messages %}
+                <div class="{% if message.tags == 'success' %}bg-green-100 border-green-400 text-green-700{% else %}bg-red-100 border-red-400 text-red-700{% endif %} border-l-4 p-4 rounded">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="POST" id="recipientRegistrationForm" enctype="multipart/form-data" class="bg-white shadow-xl rounded-lg p-6 border border-red-200">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <!-- Personal Credentials -->
+        <fieldset class="mb-8 p-6 bg-white rounded-lg border border-red-200">
+            <legend class="px-4 font-bold text-red-600 text-lg">Personal Credentials</legend>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="id_full_name" class="block text-gray-700 mb-2 font-medium">Full Name:</label>
+                    <input type="text" id="id_full_name" name="full_name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition" required>
+                </div>
+                <div>
+                    <label for="id_email" class="block text-gray-700 mb-2 font-medium">Email:</label>
+                    <input type="email" id="id_email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition" required>
+                </div>
+                <div>
+                    <label for="id_password" class="block text-gray-700 mb-2 font-medium">Password:</label>
+                    <input type="password" id="id_password" name="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition" required>
+                </div>
+                <div>
+                    <label for="id_confirm_password" class="block text-gray-700 mb-2 font-medium">Confirm Password:</label>
+                    <input type="password" id="id_confirm_password" name="confirm_password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition" required>
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Contact Details -->
+        <fieldset class="mb-8 p-6 bg-white rounded-lg border border-red-200">
+            <legend class="px-4 font-bold text-red-600 text-lg">Contact Details</legend>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="id_mobile_number" class="block text-gray-700 mb-2 font-medium">Mobile Number:</label>
+                    <input type="text" id="id_mobile_number" name="mobile_number" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition" required>
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Blood Request Details -->
+        <fieldset class="mb-8 p-6 bg-white rounded-lg border border-red-200">
+            <legend class="px-4 font-bold text-red-600 text-lg">Blood Request Details</legend>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <label for="id_blood_group_needed" class="block text-gray-700 mb-2 font-medium">Blood Group Needed:</label>
+                    <select id="id_blood_group_needed" name="blood_group_needed" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition" required>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="id_urgency" class="block text-gray-700 mb-2 font-medium">Urgency:</label>
+                    <select id="id_urgency" name="urgency" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
+                        <option value="Normal">Normal</option>
+                        <option value="Urgent">Urgent</option>
+                        <option value="Emergency">Emergency</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="id_blood_units_required" class="block text-gray-700 mb-2 font-medium">Units Required:</label>
+                    <input type="number" id="id_blood_units_required" name="blood_units_required" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition" required>
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Hospital Information -->
+        <fieldset class="mb-8 p-6 bg-white rounded-lg border border-red-200">
+            <legend class="px-4 font-bold text-red-600 text-lg">Hospital Information</legend>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="id_hospital_name" class="block text-gray-700 mb-2 font-medium">Hospital Name:</label>
+                    <input type="text" id="id_hospital_name" name="hospital_name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition" required>
+                </div>
+                <div>
+                    <label for="id_location" class="block text-gray-700 mb-2 font-medium">Hospital Location:</label>
+                    <input type="text" id="id_location" name="location" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition" required>
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- Hidden fields for Latitude and Longitude -->
+        <input type="hidden" id="id_latitude" name="latitude">
+        <input type="hidden" id="id_longitude" name="longitude">
+
+        <!-- Submit Button -->
+        <button type="submit" class="w-full bg-red-600 text-white py-3 px-6 rounded-lg hover:bg-red-700 font-medium text-lg transition transform hover:scale-[1.01]">
+            Register as Recipient
+        </button>
+    </form>
+</div>
+
+<script>
+    // Fetch latitude & longitude automatically
+    document.addEventListener("DOMContentLoaded", function () {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                document.getElementById("id_latitude").value = position.coords.latitude;
+                document.getElementById("id_longitude").value = position.coords.longitude;
+            });
+        }
+    });
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    }
+
+    function showPosition(position) {
+        document.getElementById("id_latitude").value = position.coords.latitude;
+        document.getElementById("id_longitude").value = position.coords.longitude;
+    }
+
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                alert("You must allow location access to register.");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                alert("Location information is unavailable.");
+                break;
+            case error.TIMEOUT:
+                alert("The request to get your location timed out.");
+                break;
+            case error.UNKNOWN_ERROR:
+                alert("An unknown error occurred.");
+                break;
+        }
+    }
+
+    window.onload = getLocation;
+</script>
+{% endblock %}

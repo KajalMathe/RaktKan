@@ -1,0 +1,25 @@
+{% extends 'recipients/base1.html' %}
+{% block title %}Edit Profile - RaktKan{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white p-8 rounded shadow mt-10">
+    <h2 class="text-3xl font-bold text-red-600 mb-6 text-center">Edit Profile</h2>
+
+    <form method="POST" enctype="multipart/form-data" class="space-y-6">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        {% for field in form %}
+            <div>
+                <label class="block text-gray-700">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <p class="text-red-500 text-sm">{{ field.errors|striptags }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded">Update Profile</button>
+    </form>
+</div>
+{% endblock %}

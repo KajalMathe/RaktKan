@@ -1,0 +1,56 @@
+{% extends 'donors/donor_base.html' %}
+{% load static %}
+
+{% block title %}Donor Dashboard | RaktKan{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    <!-- Dashboard Heading -->
+    <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold text-red-700">Donor Dashboard</h2>
+    </div>
+
+    <!-- Overview Section -->
+    <div class="bg-white shadow-lg rounded-xl p-6 mb-8">
+        <div class="flex items-center border-b border-red-200 pb-4 mb-4">
+            <svg class="w-6 h-6 text-red-700 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 15c2.485 0 4.799.77 6.879 2.081M15 10a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <h3 class="text-xl font-semibold text-red-700">Overview</h3>
+        </div>
+        {% if donor %}
+            <h5 class="text-lg mb-2">
+                Welcome, <span class="text-red-600 font-semibold">{{ donor.email }}</span>! 👋
+            </h5>
+            {% if overview %}
+                <p class="text-gray-700">{{ overview }}</p>
+            {% else %}
+                <p class="text-gray-500">Stay updated with your donation history and upcoming events.</p>
+            {% endif %}
+        {% else %}
+            <p class="text-red-600 font-semibold">You need to be logged in to view your dashboard.</p>
+        {% endif %}
+    </div>
+
+    <!-- Widgets Section -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for widget in widgets %}
+        <div class="bg-white shadow-lg rounded-xl p-6 flex flex-col transition-transform transform hover:scale-105 duration-300 ease-in-out">
+            <div class="flex items-center border-b border-red-200 pb-4 mb-4">
+                <i class="{{ widget.icon }} text-red-600 mr-2 text-2xl"></i>
+                <h4 class="text-lg font-semibold text-red-700">{{ widget.title }}</h4>
+            </div>
+            <div class="flex-1">
+                {% if widget.data %}
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                        {% for item in widget.data %}
+                            <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="text-gray-500">No {{ widget.title|lower }} available.</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

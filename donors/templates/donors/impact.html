@@ -1,0 +1,20 @@
+{% extends "donors/donor_base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto mt-8 px-4">
+    <h2 class="text-4xl font-semibold text-center text-red-600 mb-6">My Impact</h2>
+
+    <!-- Total Donations Section -->
+    <div class="bg-white shadow-lg rounded-lg p-6 sm:max-w-xl mx-auto mb-6">
+        <h3 class="text-xl font-semibold text-gray-800">Total Donations</h3>
+        <p class="text-2xl font-bold text-gray-900">{{ donation_count }} Donations</p>
+    </div>
+
+    <!-- Lives Saved Section -->
+    <div class="bg-white shadow-lg rounded-lg p-6 sm:max-w-xl mx-auto">
+        <h3 class="text-xl font-semibold text-gray-800">Lives Saved</h3>
+        <p class="text-2xl font-bold text-gray-900">Approximately {{ lives_saved }} lives impacted!</p>
+    </div>
+</div>
+{% endblock %}

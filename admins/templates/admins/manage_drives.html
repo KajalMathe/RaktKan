@@ -1,0 +1,37 @@
+{% extends 'admins/base_admin.html' %}
+{% block title %}Manage Donation Drives{% endblock %}
+
+{% block content %}
+<div class="container mt-3">
+    <h2 class="text-danger text-center mb-4">Pending Donation Drive Requests</h2>
+
+    {% if pending_drives %}
+        <div class="row">
+            {% for drive in pending_drives %}
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow">
+                        {% if drive.poster %}
+                            <img src="{{ drive.poster.url }}" class="card-img-top" alt="Poster">
+                        {% endif %}
+                        <div class="card-body">
+                            <h4 class="card-title">{{ drive.title }}</h4>
+                            <p>{{ drive.description }}</p>
+                            <p><strong>Date:</strong> {{ drive.start_date }} to {{ drive.end_date }}</p>
+                            <p><strong>Time:</strong> {{ drive.start_time }} - {{ drive.end_time }}</p>
+                            <p><strong>Location:</strong> {{ drive.location }}</p>
+                            <p><strong>Organizer:</strong> {{ drive.organizer_name }}</p>
+                            <p><strong>Contact:</strong> {{ drive.contact_info }}</p>
+                            <div class="d-flex justify-content-between">
+                                <a href="{% url 'approve_drive' drive.id %}" class="btn btn-success">Approve</a>
+                                <a href="{% url 'reject_drive' drive.id %}" class="btn btn-danger">Reject</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center">No pending donation drive requests.</p>
+    {% endif %}
+</div>
+{% endblock %}

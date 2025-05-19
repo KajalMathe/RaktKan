@@ -1,0 +1,38 @@
+{% extends 'admins/base_admin.html' %}
+{% load static %}
+
+{% block title %}Admin Dashboard | RaktKan{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-danger">Welcome to Admin Dashboard</h2>
+        <a href="{% url 'home' %}" class="btn btn-outline-danger">Logout</a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow border-danger mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">📝 Manage Donation Drives</h5>
+                    <p class="card-text">View and approve/reject donation drive submissions.</p>
+                    <a href="{% url 'manage_donation_drives' %}" class="btn btn-danger">Go to Requests</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example for future admin modules -->
+        <!--
+        <div class="col-md-6">
+            <div class="card shadow border-secondary mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">🧍 Donor Submissions</h5>
+                    <p class="card-text">Review donor registration info and stats.</p>
+                    <a href="#" class="btn btn-secondary">View Donors</a>
+                </div>
+            </div>
+        </div>
+        -->
+    </div>
+</div>
+{% endblock %}

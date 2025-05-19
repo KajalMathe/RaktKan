@@ -1,0 +1,81 @@
+/* Blood Donation Themed Form */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Container Styling */
+.container {
+    max-width: 900px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+    border: 3px solid #b30000;
+}
+
+/* Form Headings */
+h2 {
+    font-weight: bold;
+    color: #b30000;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #b30000;
+}
+
+/* Labels */
+label {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Input Fields */
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Mobile Number Field */
+#id_contact_number {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #b30000;
+}
+
+/* Focus Effects */
+input:focus, select:focus {
+    border-color: #b30000;
+    outline: none;
+    box-shadow: 0 0 5px rgba(179, 0, 0, 0.5);
+}
+
+/* Submit Button */
+.btn-danger {
+    background-color: #b30000;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 5px;
+    border: none;
+    text-transform: uppercase;
+    transition: 0.3s;
+    width: 100%;
+}
+
+.btn-danger:hover {
+    background-color: #ff0000;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        max-width: 95%;
+    }
+}

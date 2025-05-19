@@ -1,0 +1,60 @@
+{% extends 'recipients/base1.html' %}
+{% load static %}
+
+{% block title %}Recipient Dashboard - RaktKan{% endblock %}
+
+{% block content %}
+<!-- Main Container -->
+<div class="container mx-auto p-8 bg-white shadow-lg rounded-lg mt-10">
+    <!-- Dashboard Header -->
+    <div class="text-center">
+        <h2 class="text-4xl font-semibold text-gray-800 mb-4">Welcome, {{ recipient.full_name }}</h2>
+        <p class="text-lg text-gray-600">Here, you can manage your requests, find donors, and view your profile.</p>
+    </div>
+
+    <!-- Dashboard Overview -->
+    <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Blood Request Card -->
+        <div class="bg-blue-500 text-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+            <h3 class="text-2xl font-semibold mb-4">Blood Request Status</h3>
+            <p class="text-lg">{{ recipient.reason_for_request|default:"No active request" }}</p>
+            <div class="mt-6">
+                <a href="{% url 'create_blood_request' %}" class="inline-block bg-white text-blue-500 hover:bg-blue-100 font-semibold py-2 px-4 rounded-md transition duration-200">Create a Request</a>
+            </div>
+        </div>
+
+        <!-- Find Donors Card -->
+        <div class="bg-green-500 text-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+            <h3 class="text-2xl font-semibold mb-4">Find Blood Donors</h3>
+            <p class="text-lg">Search and connect with nearby donors for your blood needs.</p>
+            <div class="mt-6">
+                <a href="{% url 'find_donors' %}" class="inline-block bg-white text-green-500 hover:bg-green-100 font-semibold py-2 px-4 rounded-md transition duration-200">Search Donors</a>
+            </div>
+        </div>
+
+        <!-- Profile Card -->
+        <div class="bg-yellow-500 text-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+            <h3 class="text-2xl font-semibold mb-4">Your Profile</h3>
+            <p class="text-lg">Review and update your profile information, including blood group and contact details.</p>
+            <div class="mt-6">
+                <a href="{% url 'recipient_profile' %}" class="inline-block bg-white text-yellow-500 hover:bg-yellow-100 font-semibold py-2 px-4 rounded-md transition duration-200">View Profile</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity Section -->
+    <div class="mt-12 bg-gray-50 p-6 rounded-lg shadow-lg">
+        <h3 class="text-2xl font-semibold text-gray-800 mb-4">Recent Activity</h3>
+        <div class="space-y-4">
+            <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow-lg transition duration-200">
+                <p class="text-gray-600">Blood Request: <span class="font-semibold">{{ recipient.reason_for_request|default:"None" }}</span></p>
+                <p class="text-gray-600">Status: <span class="font-semibold text-green-600">{{ recipient.request_status|default:"Pending" }}</span></p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow-lg transition duration-200">
+                <p class="text-gray-600">Blood Donor Search: <span class="font-semibold">{{ recipient.blood_group_needed|default:"Not Set" }}</span></p>
+                <p class="text-gray-600">Location: <span class="font-semibold">{{ recipient.city|default:"Not Set" }}</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

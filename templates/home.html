@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - RaktKan{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+<div class="blood-container">
+    <h1 class="main-title">Welcome to RaktKan</h1>
+    <p class="subtitle">Your trusted platform for blood donation in Indore</p>
+    
+    <div class="blood-links">
+        <div class="blood-cell"><a href="{% url 'find_blood_bank' %}">Find Blood Bank</a></div>
+        <div class="blood-cell"><a href="{% url 'donation_drive' %}">Donation Drives</a></div>
+        <div class="blood-cell"><a href="{% url 'blogs' %}">Blogs</a></div>
+        <div class="blood-cell"><a href="{% url 'feedback' %}">Feedback</a></div>
+    </div>
+
+    <div class="stats-container">
+        <div class="stat-box"><h2>{{ total_users }}</h2><p>Users</p></div>
+        <div class="stat-box"><h2>{{ total_donors }}</h2><p>Donors</p></div>
+        <div class="stat-box"><h2>{{ total_recipients }}</h2><p>Recipients</p></div>
+        <div class="stat-box"><h2>{{ total_blood_banks }}</h2><p>Blood Banks</p></div>
+    </div>
+</div>
+
+{% endblock %}

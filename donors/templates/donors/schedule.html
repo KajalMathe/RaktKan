@@ -1,0 +1,46 @@
+{% extends "donors/donor_base.html" %}
+{% load static %}
+{% block content %}
+<div class="container mx-auto mt-8 px-4">
+    <!-- Title Section -->
+    <h2 class="text-3xl font-semibold text-center text-red-600 mb-4">Schedule a Donation</h2>
+
+    <div class="bg-white shadow-md rounded-lg p-6 sm:max-w-md mx-auto">
+        <p class="text-center text-gray-600 mb-4">Please fill out the form below to schedule your donation appointment.</p>
+
+        <!-- Donation Form -->
+        <form method="post">
+            {% csrf_token %}
+            
+            <!-- Date Selection -->
+            <div class="mb-4">
+                <label for="date" class="block text-gray-700 font-medium">Select Date</label>
+                <input type="date" id="date" name="date" class="w-full mt-2 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500" required>
+            </div>
+            
+            <!-- Location Selection -->
+            <div class="mb-4">
+                <label for="location" class="block text-gray-700 font-medium">Select Location</label>
+                <select id="location" name="location" class="w-full mt-2 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500" required>
+                    <option value="Hospital A">Hospital A</option>
+                    <option value="Blood Bank B">Blood Bank B</option>
+                    <option value="Clinic C">Clinic C</option>
+                </select>
+            </div>
+            
+            <!-- Submit Button -->
+            <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 rounded-md mt-4">Confirm Appointment</button>
+        </form>
+    </div>
+
+    <!-- Extra Section: Donation Benefits -->
+    <div class="mt-8 text-center">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Why Donate Blood?</h3>
+        <ul class="list-disc text-left text-gray-700 mx-auto">
+            <li>Each donation can save up to 3 lives.</li>
+            <li>Donating blood can improve cardiovascular health.</li>
+            <li>The process is safe and takes less than an hour.</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

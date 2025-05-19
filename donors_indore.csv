@@ -1,0 +1,51 @@
+email,password,full_name,dob,gender,mobile_number,alternate_contact,share_contact,blood_group,last_donation_date,thalassemia_status,donation_count,city,house_number,street,zip_code,latitude,longitude,date_joined
+aarush.goda0@example.com,Password123,Aarush Goda,1993-08-31,F,9773700891,,True,A+,2025-02-05,False,8,Indore,147,Rama Street,452062,22.74167835572988,75.8548927758326,2025-04-28 19:31:52
+devansh.ganesan1@example.com,Password123,Devansh Ganesan,1981-10-05,M,9163909823,,False,A-,2023-11-16,True,0,Indore,405,Sharaf Chowk,452031,22.737374408475933,75.83023929066832,2025-04-28 19:31:52
+saira.roy2@example.com,Password123,Saira Roy,1979-09-03,O,9156647897,,False,B+,2023-10-17,True,8,Indore,200,Bhattacharyya Path,452088,22.69315768155203,75.855142176066,2025-04-28 19:31:52
+rania.setty3@example.com,Password123,Rania Setty,1994-08-07,F,9126928918,,False,B-,,False,1,Indore,325,Kakar Nagar,452025,22.720593344983264,75.83576678676165,2025-04-28 19:31:52
+aaina.karan4@example.com,Password123,Aaina Karan,1996-01-24,M,9397096096,,True,O+,,False,5,Indore,383,Date Street,452045,22.746072862843295,75.8823194932695,2025-04-28 19:31:52
+zara.sarkar5@example.com,Password123,Zara Sarkar,1996-01-05,M,9623958667,,True,O-,,False,10,Indore,424,Sama Ganj,452079,22.703447434802815,75.87930976202945,2025-04-28 19:31:52
+jhanvi.chokshi6@example.com,Password123,Jhanvi Chokshi,1992-08-19,O,9361554461,,True,AB+,,True,7,Indore,303,Dhillon Nagar,452019,22.69536213468648,75.84199273959291,2025-04-28 19:31:52
+amira.sagar7@example.com,Password123,Amira Sagar,1996-05-02,O,9547382514,8446352646,False,AB-,2024-09-19,False,6,Indore,286,Sen Zila,452039,22.717038620758533,75.86155557381514,2025-04-28 19:31:52
+yasmin.venkatesh8@example.com,Password123,Yasmin Venkatesh,1999-08-16,M,9110992111,,False,A+,,True,0,Indore,470,Randhawa Circle,452000,22.6934118690029,75.88071431769865,2025-04-28 19:31:52
+nishith.tata9@example.com,Password123,Nishith Tata,1994-09-19,O,9389025562,8690492797,True,A-,,False,9,Indore,50,Ghose Circle,452090,22.697862623392524,75.83784773463655,2025-04-28 19:31:52
+ranbir.goyal10@example.com,Password123,Ranbir Goyal,1993-01-02,M,9317575842,,False,B+,2024-06-22,True,9,Indore,404,Sule Marg,452073,22.719805147472904,75.83590747930569,2025-04-28 19:31:52
+akarsh.soman11@example.com,Password123,Akarsh Soman,1979-05-31,O,9166935276,,False,B-,,True,10,Indore,229,Tailor Zila,452075,22.727049321442248,75.8475018069078,2025-04-28 19:31:52
+shalv.sahni12@example.com,Password123,Shalv Sahni,2001-03-08,M,9884879365,,True,O+,2025-02-12,True,5,Indore,432,Banik Street,452068,22.73026979213769,75.86855705081229,2025-04-28 19:31:52
+divij.lalla13@example.com,Password123,Divij Lalla,2002-10-23,O,9951810292,8932191397,False,O-,2025-03-28,False,0,Indore,153,Varkey Nagar,452088,22.696425773000747,75.83599460304248,2025-04-28 19:31:52
+emir.amble14@example.com,Password123,Emir Amble,1981-08-02,O,9850824605,8147642107,False,AB+,,False,10,Indore,12,Setty Zila,452041,22.731696262513694,75.87761829318754,2025-04-28 19:31:52
+romil.mandal15@example.com,Password123,Romil Mandal,1991-12-14,O,9322639862,,True,AB-,2023-10-29,True,5,Indore,58,Sem,452052,22.727213191876885,75.84454768389716,2025-04-28 19:31:52
+lagan.behl16@example.com,Password123,Lagan Behl,1993-01-22,M,9734064910,,True,A+,,True,2,Indore,341,Amble Ganj,452042,22.72978781639544,75.86137226001887,2025-04-28 19:31:52
+lavanya.kibe17@example.com,Password123,Lavanya Kibe,2001-02-12,M,9505574414,,False,A-,2025-04-05,True,6,Indore,345,Barman,452091,22.72331870884498,75.86718442421045,2025-04-28 19:31:52
+jiya.kumar18@example.com,Password123,Jiya Kumar,1997-05-08,F,9551329147,8795158374,True,B+,2024-01-09,False,8,Indore,325,Vyas Zila,452016,22.701474753434244,75.86796225764401,2025-04-28 19:31:52
+aayush.vora19@example.com,Password123,Aayush Vora,1990-07-25,O,9636380154,,False,B-,2023-07-26,True,8,Indore,424,D’Alia Ganj,452001,22.705576365295695,75.88435128704101,2025-04-28 19:31:52
+taran.kale20@example.com,Password123,Taran Kale,1982-10-14,O,9578140088,,False,O+,,True,9,Indore,8,Aurora Street,452095,22.72905484554954,75.88298650380888,2025-04-28 19:31:52
+gatik.chandra21@example.com,Password123,Gatik Chandra,2006-12-30,F,9109799001,,True,O-,2025-04-22,False,5,Indore,54,Khanna Road,452034,22.74106235562974,75.83770500901775,2025-04-28 19:31:52
+charvi.subramanian22@example.com,Password123,Charvi Subramanian,2006-09-23,F,9696871697,8352345527,True,AB+,,False,0,Indore,499,Behl Marg,452055,22.737342271198184,75.83682550595657,2025-04-28 19:31:52
+pranay.samra23@example.com,Password123,Pranay Samra,2003-10-27,M,9279296403,,True,AB-,,False,7,Indore,107,Handa Path,452007,22.701351544761813,75.8544130680188,2025-04-28 19:31:52
+aaina.iyengar24@example.com,Password123,Aaina Iyengar,2000-09-04,M,9481895997,8424043918,False,A+,,False,6,Indore,80,Wason Street,452067,22.70643391071314,75.87382605228272,2025-04-28 19:31:52
+trisha.bedi25@example.com,Password123,Trisha Bedi,2001-07-09,O,9935313249,,True,A-,,True,3,Indore,244,Raman Chowk,452035,22.705335279238415,75.8404419973262,2025-04-28 19:31:52
+sumer.gole26@example.com,Password123,Sumer Gole,1989-07-14,F,9146351716,,True,B+,2025-04-10,True,7,Indore,34,Baral Street,452014,22.692419778375708,75.86279297420336,2025-04-28 19:31:52
+tiya.rajagopalan27@example.com,Password123,Tiya Rajagopalan,2004-03-01,F,9422343346,,True,B-,2025-03-04,True,4,Indore,89,Dora Street,452043,22.740576147080375,75.88101945471054,2025-04-28 19:31:52
+fateh.sahni28@example.com,Password123,Fateh Sahni,1984-07-26,F,9638254086,,True,O+,2024-06-02,True,3,Indore,140,Singhal Street,452032,22.705043568114164,75.87749929412708,2025-04-28 19:31:52
+kiaan.bhatia29@example.com,Password123,Kiaan Bhatia,2006-01-28,F,9624325585,,False,O-,,True,2,Indore,184,Khanna Circle,452069,22.740534691320615,75.85625120014133,2025-04-28 19:31:52
+adah.suri30@example.com,Password123,Adah Suri,2003-10-20,O,9997534732,,True,AB+,2024-03-31,True,5,Indore,436,Jain Street,452063,22.71218098132543,75.86217772760737,2025-04-28 19:31:52
+bhamini.shankar31@example.com,Password123,Bhamini Shankar,1985-04-18,O,9952015842,,True,AB-,,False,7,Indore,219,Chaudhary Chowk,452067,22.709315363195195,75.83769209741637,2025-04-28 19:31:52
+chirag.bhandari32@example.com,Password123,Chirag Bhandari,2001-06-08,M,9804035874,8992105986,True,A+,,True,4,Indore,357,Apte Ganj,452010,22.72232974905455,75.83573487885212,2025-04-28 19:31:52
+rati.dada33@example.com,Password123,Rati Dada,1980-03-18,O,9320622423,8241791193,False,A-,,False,5,Indore,194,Hora,452078,22.700237333338322,75.86960827474377,2025-04-28 19:31:52
+miraya.lala34@example.com,Password123,Miraya Lala,2005-04-13,M,9864550448,8576151202,False,B+,,False,4,Indore,141,Kaur Nagar,452036,22.748980858950592,75.84251653822427,2025-04-28 19:31:52
+dhanush.jayaraman35@example.com,Password123,Dhanush Jayaraman,2003-07-07,M,9423291844,,True,B-,2024-07-17,False,2,Indore,461,Walla,452004,22.714145101941877,75.84467694319679,2025-04-28 19:31:52
+chirag.chaudhari36@example.com,Password123,Chirag Chaudhari,1985-07-07,M,9788842216,,True,O+,2024-03-16,True,7,Indore,404,Iyengar Marg,452090,22.719537648039402,75.88396130966281,2025-04-28 19:31:52
+ela.mani37@example.com,Password123,Ela Mani,1988-05-29,F,9751454384,,True,O-,,True,1,Indore,101,Ram Street,452095,22.704603800175263,75.87135094423415,2025-04-28 19:31:52
+chirag.vasa38@example.com,Password123,Chirag Vasa,2005-03-17,O,9416785754,,False,AB+,,False,3,Indore,296,Goyal Chowk,452045,22.729192737314666,75.866418586575,2025-04-28 19:31:52
+prisha.bhatnagar39@example.com,Password123,Prisha Bhatnagar,2006-01-10,O,9128828671,8206144487,False,AB-,,False,7,Indore,236,Dara Nagar,452025,22.70992544853824,75.83230521585185,2025-04-28 19:31:52
+arnav.luthra40@example.com,Password123,Arnav Luthra,1996-05-10,M,9417196935,8388020488,False,A+,,True,8,Indore,49,Sarraf Nagar,452019,22.714712928956203,75.83417760311886,2025-04-28 19:31:52
+jayan.chander41@example.com,Password123,Jayan Chander,1994-10-21,M,9941189862,8427303517,True,A-,,True,6,Indore,489,Toor Road,452036,22.72045306025312,75.88229372340241,2025-04-28 19:31:52
+mehul.dey42@example.com,Password123,Mehul Dey,1979-04-29,F,9919341209,8358339697,False,B+,,False,1,Indore,193,Joshi Marg,452035,22.722651971355372,75.8650000739885,2025-04-28 19:31:52
+shamik.lal43@example.com,Password123,Shamik Lal,2006-06-11,M,9827016385,8819079625,False,B-,,False,10,Indore,490,Kota Circle,452035,22.707380753963683,75.86823318061582,2025-04-28 19:31:52
+emir.cheema44@example.com,Password123,Emir Cheema,1991-04-02,M,9684453721,,False,O+,,False,5,Indore,417,Raval Ganj,452016,22.74358598789086,75.88642190461263,2025-04-28 19:31:52
+indranil.ghose45@example.com,Password123,Indranil Ghose,1987-07-29,O,9684218679,8370020403,True,O-,,True,2,Indore,440,Manda Ganj,452085,22.698529762015,75.88074495934639,2025-04-28 19:31:52
+pranay.sangha46@example.com,Password123,Pranay Sangha,1989-09-12,F,9112587568,8992142130,False,AB+,,False,5,Indore,66,Sanghvi Chowk,452051,22.689717503510604,75.85435857284178,2025-04-28 19:31:52
+pari.ghosh47@example.com,Password123,Pari Ghosh,1998-09-10,M,9259407742,,False,AB-,2024-12-03,True,9,Indore,340,Manne Zila,452031,22.732832328087895,75.88306219396684,2025-04-28 19:31:52
+divit.bala48@example.com,Password123,Divit Bala,1979-06-25,F,9555584351,,False,A+,,False,9,Indore,359,Sengupta Road,452001,22.739320555867554,75.88429117208533,2025-04-28 19:31:52
+arhaan.guha49@example.com,Password123,Arhaan Guha,2002-11-20,O,9843618817,8759523803,False,A-,2024-06-18,True,9,Indore,323,Bava Chowk,452038,22.742954199044323,75.83508107905246,2025-04-28 19:31:52

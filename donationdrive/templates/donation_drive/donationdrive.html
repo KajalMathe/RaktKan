@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block title %}Donation Drives{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 max-w-6xl">
+    <h1 class="text-center text-3xl font-bold text-red-600 mb-8">Upcoming Donation Drives</h1>
+
+    <div class="flex justify-end mb-6">
+        <a href="{% url 'register_drive' %}" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-md transition duration-200">
+            Register a Donation Drive
+        </a>
+    </div>
+
+    {% for drive in drives %}
+        <div class="bg-white shadow-lg rounded-lg mb-8 overflow-hidden border-2 border-red-500">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
+                <!-- Drive Details (Left Side) -->
+                <div class="md:col-span-2">
+                    <h4 class="text-2xl font-bold text-red-600 mb-3">{{ drive.title }}</h4>
+                    <p class="text-gray-700 mb-4">{{ drive.description }}</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="flex items-start">
+                            <span class="mr-2 text-red-500">📅</span>
+                            <div>
+                                <p class="font-semibold">Dates</p>
+                                <p>{{ drive.start_date|date:"M d, Y" }} to {{ drive.end_date|date:"M d, Y" }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <span class="mr-2 text-red-500">⏰</span>
+                            <div>
+                                <p class="font-semibold">Time</p>
+                                <p>{{ drive.start_time|time:"g:i A" }} to {{ drive.end_time|time:"g:i A" }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <span class="mr-2 text-red-500">📍</span>
+                            <div>
+                                <p class="font-semibold">Location</p>
+                                <p>{{ drive.location }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <span class="mr-2 text-red-500">👤</span>
+                            <div>
+                                <p class="font-semibold">Organizer</p>
+                                <p>{{ drive.organizer_name }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 flex items-start">
+                        <span class="mr-2 text-red-500">📞</span>
+                        <div>
+                            <p class="font-semibold">Contact</p>
+                            <p>{{ drive.contact_info }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Poster Image (Right Side) -->
+                {% if drive.poster %}
+                    <div class="flex justify-center items-start">
+                        <div class="w-full h-64 md:h-full overflow-hidden rounded-lg border border-gray-200">
+                            <img src="{{ drive.poster.url }}" class="w-full h-full object-cover" alt="Poster for {{ drive.title }}">
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% empty %}
+        <div class="text-center py-12 bg-white rounded-lg shadow border border-gray-200">
+            <p class="text-gray-500 text-lg">No upcoming donation drives at the moment.</p>
+            <p class="mt-2">Check back later or register a new drive!</p>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,10 @@
+<!-- /templates/register.html -->
+{% extends 'base.html' %}
+{% block title %}Register - RaktKan{% endblock %}
+{% block content %}
+<div class="text-center">
+  <h2 class="text-danger">Register as:</h2>
+  <a href="{% url 'donor_register' %}" class="btn btn-danger m-2">Donor</a>
+  <a href="{% url 'recipient_register' %}" class="btn btn-outline-danger m-2">Recipient</a>
+</div>
+{% endblock %}

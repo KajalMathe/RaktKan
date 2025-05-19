@@ -1,0 +1,139 @@
+/* styles.css */
+
+/* Base styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff5f5;  /* Light red background */
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar styling */
+
+/* Footer styling */
+footer {
+    background-color: #dc3545;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* Container spacing */
+.container {
+    margin-top: 20px;
+}
+
+/* Custom button styling */
+.btn-custom {
+    background-color: #dc3545;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: #b02a37;
+}
+
+/* Responsive text */
+h1, h2, h3 {
+    color: #dc3545;
+}
+
+/* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #0d0d0d;
+    color: #fff;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #b1001c !important;
+}
+
+.navbar .nav-link {
+    color: white !important;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar .nav-link:hover {
+    color: #ffb3c1 !important;
+}
+
+/* Container Styling */
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: #111;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.3);
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #b1001c;
+    border: none;
+    color: white;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #900017;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+/* Profile Picture */
+.profile-picture {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border: 3px solid #b1001c;
+}
+
+/* Dashboard Overview Box */
+.overview-box {
+    background-color: #111;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(255, 0, 0, 0.3);
+}
+
+.overview-box h3 {
+    background-color: #b1001c;
+    color: white;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+}
+
+.overview-box p {
+    padding: 10px;
+}
+
+/* Footer */
+.footer {
+    background-color: #b1001c;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+/* Assuming Tailwind's utilities are already set up */
+
+  

@@ -1,0 +1,203 @@
+{% extends 'recipients/base1.html' %}
+
+{% block title %}Find Donors - Raktkan{% endblock %}
+
+{% block content %}
+<!-- ====== HEADER ====== -->
+<section class="bg-red-600 text-white py-12">
+    <div class="container mx-auto text-center">
+        <h1 class="text-4xl font-bold">Find Blood Donors</h1>
+        <p class="mt-4">Search for nearby donors who match your blood group.</p>
+    </div>
+</section>
+
+<!-- ====== BLOOD GROUP DISPLAY ====== -->
+<section class="py-6">
+    <div class="container mx-auto px-4 text-center">
+        <p class="text-lg text-gray-800">
+            Showing donors with blood group:
+            <span class="text-red-600 font-bold">{{ required_blood_group }}</span>
+        </p>
+    </div>
+</section>
+
+<!-- ====== MAP SECTION ====== -->
+<section class="py-8">
+    <div class="container mx-auto px-4">
+        <h2 class="text-2xl font-semibold text-gray-800">Donors Near You (Under 50 km)</h2>
+        
+        <!-- MAP -->
+        <div id="donor-map" class="w-full h-96 mt-6"></div>
+        
+        <!-- Donor List -->
+        <div class="mt-6">
+            <div class="bg-white shadow-lg p-4 rounded-lg">
+                <h3 class="text-xl font-semibold text-gray-800">Nearest Donors</h3>
+                <ul id="donor-list" class="space-y-4">
+                    <!-- Dynamic content will be inserted here -->
+                    <li class="text-gray-500">Loading donors...</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ====== Leaflet & MarkerCluster CSS ====== -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+
+<!-- ====== Leaflet & MarkerCluster JS ====== -->
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+
+<script>
+    // Initialize map with safe default coordinates
+    var map = L.map('donor-map').setView([22.7196, 75.8577], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Blood drop icon configuration
+    var donorIcon = L.icon({
+        iconUrl: 'https://cdn-icons-png.flaticon.com/512/2776/2776067.png',
+        iconSize: [40, 40],
+        iconAnchor: [20, 40],
+        popupAnchor: [0, -40]
+    });
+
+    // Safely get donor data from Django template
+    var donors = [
+        {% for donor in donors %}
+            {% if donor.latitude and donor.longitude %}
+                {
+                    name: "{{ donor.full_name|escapejs }}",
+                    blood_group: "{{ donor.blood_group|escapejs }}",
+                    city: "{{ donor.city|escapejs }}",
+                    lat: {{ donor.latitude }},
+                    lng: {{ donor.longitude }}
+                }{% if not forloop.last %},{% endif %}
+            {% endif %}
+        {% endfor %}
+    ];
+
+    // Main geolocation function
+    function initMap() {
+        if (!navigator.geolocation) {
+            alert("Geolocation is not supported by your browser");
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            position => handleGeolocationSuccess(position, donors),
+            error => handleGeolocationError(error)
+        );
+    }
+
+    function handleGeolocationSuccess(position, donors) {
+        const userLat = position.coords.latitude;
+        const userLng = position.coords.longitude;
+        
+        // Update map view
+        map.setView([userLat, userLng], 12);
+
+        // Add user marker
+        const userMarker = L.marker([userLat, userLng], {
+            icon: L.icon({
+                iconUrl: 'https://cdn-icons-png.flaticon.com/512/64/64113.png',
+                iconSize: [30, 30],
+                iconAnchor: [15, 30],
+                popupAnchor: [0, -30]
+            })
+        }).addTo(map).bindPopup("You are here").openPopup();
+
+        // Process donors
+        const filteredDonors = filterDonors(userLat, userLng, donors);
+        displayDonors(filteredDonors);
+    }
+
+    function handleGeolocationError(error) {
+        console.error("Geolocation error:", error);
+        alert("Unable to retrieve your location. Showing default map view.");
+    }
+
+    function filterDonors(userLat, userLng, donors) {
+        return donors.map(donor => {
+            const distance = getDistanceFromLatLonInKm(
+                userLat, userLng, donor.lat, donor.lng
+            );
+            return {
+                ...donor,
+                distance: distance.toFixed(2),
+                estimated_time: calculateEstimatedTime(distance)
+            };
+        }).filter(donor => donor.distance <= 50);
+    }
+
+    function displayDonors(filteredDonors) {
+        const donorList = document.getElementById('donor-list');
+        donorList.innerHTML = ''; // Clear loading message
+
+        if (filteredDonors.length === 0) {
+            donorList.innerHTML = `<li class="text-gray-500">No donors found within 50 km.</li>`;
+            return;
+        }
+
+        // Create marker cluster group
+        const markers = L.markerClusterGroup();
+        
+        filteredDonors.forEach(donor => {
+            // Add marker to cluster group
+            const marker = L.marker([donor.lat, donor.lng], { icon: donorIcon })
+                .bindPopup(`
+                    <b>${donor.name}</b><br>
+                    Blood Type: ${donor.blood_group}<br>
+                    Distance: ${donor.distance} km<br>
+                    Estimated time: ${donor.estimated_time} min
+                `);
+            markers.addLayer(marker);
+
+            // Add to donor list
+            const listItem = document.createElement('li');
+            listItem.className = 'flex items-center bg-gray-100 p-4 rounded-lg shadow-md hover:bg-red-100 transition-all duration-300';
+            listItem.innerHTML = `
+                <div class="flex-1">
+                    <p class="font-semibold text-gray-900">${donor.name}</p>
+                    <p class="text-gray-600">Blood Type: ${donor.blood_group}</p>
+                </div>
+                <div class="ml-4 text-right">
+                    <p class="text-gray-500">Distance: ${donor.distance} km</p>
+                    <p class="text-gray-500">Estimated Time: ${donor.estimated_time} min</p>
+                </div>
+            `;
+            donorList.appendChild(listItem);
+        });
+
+        // Add all markers to map at once
+        map.addLayer(markers);
+    }
+
+    // Haversine formula implementation
+    function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+        const R = 6371; // Earth radius in km
+        const dLat = deg2rad(lat2 - lat1);
+        const dLon = deg2rad(lon2 - lon1);
+        const a = 
+            Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+            Math.sin(dLon/2) * Math.sin(dLon/2);
+        return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    }
+
+    function deg2rad(deg) {
+        return deg * (Math.PI/180);
+    }
+
+    function calculateEstimatedTime(distance) {
+        return (distance / 0.5).toFixed(2); // Walking speed 0.5 km/min
+    }
+
+    // Initialize the map
+    initMap();
+</script>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Thank You{% endblock %}
+
+{% block content %}
+<div class="container text-center my-5">
+    <h2>Thank you for submitting your donation drive!</h2>
+    <p>We will review your request and post it shortly upon approval.</p>
+    <a href="{% url 'donation_drive' %}" class="btn btn-primary mt-3">Back to Drives</a>
+</div>
+{% endblock %}

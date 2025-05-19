@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}RaktKan{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans flex flex-col min-h-screen">
+
+<!-- Navbar -->
+<nav class="bg-red-800 text-white shadow-md">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <!-- Logo -->
+    <div class="flex items-center space-x-4">
+      <img src="{% static 'images/imagelogo.png' %}" alt="Logo" class="h-12 w-12 rounded-full object-contain">
+      <span class="text-2xl font-semibold">RaktKan</span>
+    </div>
+
+    <!-- Desktop Links -->
+    <ul class="hidden md:flex space-x-6 text-sm font-medium items-center">
+      <li><a href="{% url 'home' %}" class="hover:text-gray-300">Home</a></li>
+      <li><a href="{% url 'find_blood_bank' %}" class="hover:text-gray-300">Find Blood Bank</a></li>
+      <li><a href="{% url 'donation_drive' %}" class="hover:text-gray-300">Donation Drive</a></li>
+      <li><a href="{% url 'blogs' %}" class="hover:text-gray-300">Blogs</a></li>
+      <li><a href="{% url 'feedback' %}" class="hover:text-gray-300">Feedback</a></li>
+
+      <!-- Login Dropdown -->
+      <li class="relative">
+        <button id="loginBtn" class="hover:text-gray-300 focus:outline-none">Login</button>
+        <ul id="loginDropdown" class="absolute right-0 hidden bg-white text-red-800 rounded shadow-md mt-2 w-40 z-50">
+          <li><a href="{% url 'donor_login' %}" class="block px-4 py-2 hover:bg-gray-100">Donor Login</a></li>
+          <li><a href="{% url 'recipient_login' %}" class="block px-4 py-2 hover:bg-gray-100">Recipient Login</a></li>
+        </ul>
+      </li>
+
+      <!-- Register Dropdown -->
+      <li class="relative">
+        <button id="registerBtn" class="hover:text-gray-300 focus:outline-none">Register</button>
+        <ul id="registerDropdown" class="absolute right-0 hidden bg-white text-red-800 rounded shadow-md mt-2 w-44 z-50">
+          <li><a href="{% url 'donor_register' %}" class="block px-4 py-2 hover:bg-gray-100">Donor Register</a></li>
+          <li><a href="{% url 'recipient_register' %}" class="block px-4 py-2 hover:bg-gray-100">Recipient Register</a></li>
+        </ul>
+      </li>
+
+      <li><a href="{% url 'admin_login' %}" class="hover:text-gray-300">Admin Login</a></li>
+    </ul>
+
+    <!-- Mobile Menu Button -->
+    <button id="mobileMenuBtn" class="md:hidden text-white focus:outline-none">
+      <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Dropdown -->
+  <div id="mobileMenu" class="md:hidden hidden px-6 py-4 bg-red-800 space-y-4">
+    <a href="{% url 'home' %}" class="block text-white hover:text-gray-300">Home</a>
+    <a href="{% url 'find_blood_bank' %}" class="block text-white hover:text-gray-300">Find Blood Bank</a>
+    <a href="{% url 'donation_drive' %}" class="block text-white hover:text-gray-300">Donation Drive</a>
+    <a href="{% url 'blogs' %}" class="block text-white hover:text-gray-300">Blogs</a>
+    <a href="{% url 'feedback' %}" class="block text-white hover:text-gray-300">Feedback</a>
+    <a href="{% url 'donor_login' %}" class="block text-white hover:text-gray-300">Donor Login</a>
+    <a href="{% url 'recipient_login' %}" class="block text-white hover:text-gray-300">Recipient Login</a>
+    <a href="{% url 'donor_register' %}" class="block text-white hover:text-gray-300">Donor Register</a>
+    <a href="{% url 'recipient_register' %}" class="block text-white hover:text-gray-300">Recipient Register</a>
+    <a href="{% url 'admin_login' %}" class="block text-white hover:text-gray-300">Admin Login</a>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main class="flex-1 container mx-auto px-4 py-8">
+  {% block content %}{% endblock %}
+</main>
+
+<!-- Footer -->
+<footer class="bg-red-800 text-white text-center py-4">
+  <p>&copy; 2025 RaktKan | Donate Blood, Save Lives</p>
+</footer>
+
+<!-- JS for dropdowns and mobile menu -->
+<script>
+  // Mobile menu toggle
+  const mobileBtn = document.getElementById('mobileMenuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  mobileBtn?.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+
+  // Dropdown toggles
+  const loginBtn = document.getElementById('loginBtn');
+  const loginDropdown = document.getElementById('loginDropdown');
+  const registerBtn = document.getElementById('registerBtn');
+  const registerDropdown = document.getElementById('registerDropdown');
+
+  loginBtn?.addEventListener('click', () => {
+    loginDropdown.classList.toggle('hidden');
+    registerDropdown.classList.add('hidden');
+  });
+
+  registerBtn?.addEventListener('click', () => {
+    registerDropdown.classList.toggle('hidden');
+    loginDropdown.classList.add('hidden');
+  });
+
+  // Hide dropdowns when clicking outside
+  document.addEventListener('click', function (e) {
+    if (!loginBtn.contains(e.target) && !loginDropdown.contains(e.target)) {
+      loginDropdown.classList.add('hidden');
+    }
+    if (!registerBtn.contains(e.target) && !registerDropdown.contains(e.target)) {
+      registerDropdown.classList.add('hidden');
+    }
+  });
+</script>
+
+{% block extra_js %}{% endblock %}
+</body>
+</html>
